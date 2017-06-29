@@ -54,7 +54,7 @@ module.exports = function(robot) {
         
         robot.logger.debug('sending request');
         var success = false;
-        https.get(options, function(resp) {
+        var request = https.get(options, function(resp) {
           robot.logger.debug('statusCode:', resp.statusCode);
           robot.logger.debug('headers:', resp.headers);
 
@@ -68,7 +68,7 @@ module.exports = function(robot) {
           robot.logger.debug(e);
           robot.reply('Sorry, I couldn\'t find a gif for that search term.');
         });
-        
+        robot.logger.debug(request);
         return success;
 	}
 }
