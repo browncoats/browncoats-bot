@@ -29,11 +29,11 @@ module.exports = function(robot) {
 			}
 		}
         else {
-            respondWithGif(term, msg);
+            respondWithGif(term, res);
 		}
 	});
     
-    function respondWithGif(searchTerm) {
+    function respondWithGif(searchTerm, msg) {
         const https = require('https');
       
         var baseUrl = 'https://api.giphy.com/v1/gifs/search';
@@ -74,6 +74,9 @@ module.exports = function(robot) {
                     robot.logger.debug('body: ' + body);
                     var data = JSON.parse(body);
                     robot.logger.debug('data: ' + data);
+                    for (var item in data) {
+                      robot.logger.debug(item + ': ' + data[item]);
+                    }
                     msg.send(data.bitly_gif_url);
                     success = true;
                 }
