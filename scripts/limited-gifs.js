@@ -49,7 +49,8 @@ module.exports = function(robot) {
           url: baseUrl,
           qs: data
         };
-      
+        
+        robot.logger.debug('sending request');
         robot.http(request)
             .header('Accept', 'application/json')
             .path('v1/gifs/search')
@@ -59,6 +60,7 @@ module.exports = function(robot) {
                     robot.reply('Sorry, I couldn\'t find a gif for that search term.');
 				        }
                 else {
+                    robot.logger.debug('received reply: ' + body);
                     res.send(body.data.url);
                     success = true;
                 }
