@@ -1,6 +1,6 @@
 module.exports = function(robot) {
 
-    robot[userGifUsage] = {};
+    robot.userGifUsage = {};
     var gifChannel = 'jiffs'
     var gifLimit = 10
     var gifRating = 'PG-13'
