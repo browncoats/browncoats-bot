@@ -72,7 +72,8 @@ module.exports = function(robot) {
                 else {
                     robot.logger.debug('response: ' + resp);
                     robot.logger.debug('body: ' + body);
-                    robot.send(body.data[0].bitly_gif_url);
+                    robot.logger.debug('data: ' + body.data);
+                    res.send(body.data[0].bitly_gif_url);
                     success = true;
                 }
 				
