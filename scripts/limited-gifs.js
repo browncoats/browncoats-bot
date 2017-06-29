@@ -59,7 +59,7 @@ module.exports = function(robot) {
                     robot.reply('Sorry, I couldn\'t find a gif for that search term.');
 				        }
                 else {
-                    robot.send(body.data.url);
+                    res.send(body.data.url);
                     success = true;
                 }
 				
