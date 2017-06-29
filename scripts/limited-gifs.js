@@ -21,19 +21,17 @@ module.exports = function(robot) {
                 res.reply('You\'ve reached your gif limit for the day. Try #' + gifChannel);
 			}
             else {
-                res.reply(robot.userGifUsage[res.message.user] + ' of ' + gifLimit + ' gifs used for the day.');
-                
-                if (!!respondWithGif(term, res)) {
-                    robot.userGifUsage[res.message.user]++;
+                res.reply(robot.userGifUsage[res.message.user] + ' of ' + gifLimit + ' gifs used for the day.');               
+                respondWithGif(term, res, true)
 				}
 			}
 		}
         else {
-            respondWithGif(term, res);
+            respondWithGif(term, res, false);
 		}
 	});
     
-    function respondWithGif(searchTerm, msg) {
+    function respondWithGif(searchTerm, msg, increment) {
         const https = require('https');
       
         var baseUrl = 'https://api.giphy.com/v1/gifs/search';
@@ -65,7 +63,6 @@ module.exports = function(robot) {
         robot.http(requestUrl)
             .header('Accept', 'application/json')
             .get()(function(err, resp, body) {
-                var success = false
                 if (err) {
                     robot.reply('Sorry, I couldn\'t find a gif for that search term.');
 				}
@@ -73,15 +70,12 @@ module.exports = function(robot) {
                     robot.logger.debug('response: ' + resp);
                     robot.logger.debug('body: ' + body);
                     var data = JSON.parse(body);
-                    robot.logger.debug('data: ' + data.data);
-                    for (var item in data.data) {
-                      robot.logger.debug(item + ': ' + data.data[item]);
-                    }
+
                     msg.send(data.data[0].bitly_gif_url);
-                    success = true;
+                    if (!!increment) {
+                      robot.userGifUsage[msg.message.user]++;
+                    }
                 }
-				
-                return success;
 			});
 	}
 }
