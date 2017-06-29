@@ -61,7 +61,7 @@ module.exports = function(robot) {
           requestUrl += item + '=' + data[item];
         }
         
-        robot.logger.debug('sending request');
+        robot.logger.debug('sending request:' + requestUrl);
         robot.http(requestUrl)
             .header('Accept', 'application/json')
             .get()(function(err, resp, body) {
