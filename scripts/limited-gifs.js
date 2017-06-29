@@ -54,11 +54,11 @@ module.exports = function(robot) {
         
         robot.logger.debug('sending request');
         var success = false;
-        https.get(options, (res) => {
-          robot.logger.debug('statusCode:', res.statusCode);
-          robot.logger.debug('headers:', res.headers);
+        https.get(options, function(resp) {
+          robot.logger.debug('statusCode:', resp.statusCode);
+          robot.logger.debug('headers:', resp.headers);
 
-          res.on('data', (d) => {
+          resp.on('data', (d) => {
             robot.logger.debug(d);
             success = true;
             res.send(d.url);
