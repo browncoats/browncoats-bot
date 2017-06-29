@@ -53,22 +53,19 @@ module.exports = function(robot) {
         };
         
         robot.logger.debug('sending request');
-        var success = false;
-        var request = https.get(options, function(resp) {
-          robot.logger.debug('statusCode:', resp.statusCode);
-          robot.logger.debug('headers:', resp.headers);
-
-          resp.on('data', function(d) {
-            robot.logger.debug(d);
-            success = true;
-            res.send(d.url);
-          });
-
-        }).on('error', function(e) {
-          robot.logger.debug(e);
-          robot.reply('Sorry, I couldn\'t find a gif for that search term.');
-        });
-        robot.logger.debug(request);
-        return success;
+        robot.http(requestUrl)
+            .header('Accept', 'application/json')
+            .get()(function(err, resp, body) {
+                var success = false
+                if (err) {
+                    robot.reply('Sorry, I couldn\'t find a gif for that search term.');
+				}
+                else {
+                    robot.send(body.data.url);
+                    success = true;
+                }
+				
+                return success;
+			});
 	}
 }
