@@ -70,7 +70,7 @@ module.exports = function(robot) {
                     robot.reply('Sorry, I couldn\'t find a gif for that search term.');
 				}
                 else {
-                    robot.send(body.data.url);
+                    robot.send(body.data[0].bitly_gif_url);
                     success = true;
                 }
 				
