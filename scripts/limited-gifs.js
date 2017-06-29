@@ -20,7 +20,7 @@ module.exports = function(robot) {
                 res.reply('You\'ve reached your gif limit for the day. Try #' + gifChannel);
             }
             else {
-                res.reply(robot.userGifUsage[res.message.user] + ' of ' gifLimit + 'gifs used for the day.');
+                res.reply(robot.userGifUsage[res.message.user] + ' of ' + gifLimit + 'gifs used for the day.');
                 
                 if (respondWithGif(term)) {
                     robot.userGifUsage[res.message.user]++;
