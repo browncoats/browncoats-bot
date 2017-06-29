@@ -6,7 +6,7 @@ module.exports = function(robot) {
     var gifRating = 'PG-13'
     
     robot.respond(/gif (.*)/i, function(res) {
-        var term = match[1];
+        var term = res.match[1];
         
         if (term.length === 0) {
             res.reply('You have to enter a search term if you want to see a gif.');
