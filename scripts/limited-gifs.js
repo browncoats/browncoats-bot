@@ -47,10 +47,19 @@ module.exports = function(robot) {
             lang: 'en'
         };
 		    
-        var options = {
-          url: baseUrl,
-          qs: data
-        };
+        var requestUrl = baseUrl;
+        var firstTime = true;
+        for (var item in data) {
+          if (!!firstTime) {
+            requestUrl += '?';
+            firstTime = false;
+          }
+          else {
+            requestUrl += '?';
+          }
+
+          requestUrl += item + '=' + data[item];
+        }
         
         robot.logger.debug('sending request');
         robot.http(requestUrl)
