@@ -37,11 +37,11 @@ module.exports = function(robot) {
         var baseUrl = 'https://api.giphy.com/v1/gifs/search';
         
         var data = {
-            api_key: process.env.HUBOT_GIPHY_TOKEN
-            q: searchTerm
-            limit: 1
-            offset: 0
-            rating: gifRating
+            api_key: process.env.HUBOT_GIPHY_TOKEN,
+            q: searchTerm,
+            limit: 1,
+            offset: 0,
+            rating: gifRating,
             lang: en
         };
 		
