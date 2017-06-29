@@ -1,5 +1,6 @@
 module.exports = (robot) ->
-    robot[userGifUsage] = {}
+
+    `robot[userGifUsage] = {};`
     gifChannel = 'jiffs'
     gifLimit = 10
     gifRating = 'PG-13'
@@ -11,8 +12,8 @@ module.exports = (robot) ->
             res.reply 'You have to enter a search term if you want to see a gif.'
 
         if res.message.room != gifChannel
-            if robot.userGifUsage[res.message.user]?
-                robot.userGifUsage[res.message.user] = 0
+            if not robot.userGifUsage[res.message.user]?
+                `robot.userGifUsage[res.message.user] = 0;`
             
             if robot.userGifUsage[res.message.user] >= gifLimit
                 limitReached = 'You\'ve reached your gif limit for the day. Try #' + gifChannel
