@@ -21,7 +21,7 @@ module.exports = function(robot) {
                 res.reply('You\'ve reached your gif limit for the day. Try #' + gifChannel);
 			}
             else {
-                res.reply(robot.userGifUsage[res.message.user] + ' of ' + gifLimit + 'gifs used for the day.');
+                res.reply(robot.userGifUsage[res.message.user] + ' of ' + gifLimit + ' gifs used for the day.');
                 
                 if (!!respondWithGif(term)) {
                     robot.userGifUsage[res.message.user]++;
@@ -44,15 +44,20 @@ module.exports = function(robot) {
             rating: gifRating,
             lang: 'en'
         };
-		
-        robot.http(baseUrl)
+		    
+        var request = {
+          url: baseUrl,
+          qs: data
+        };
+      
+        robot.http(request)
             .header('Accept', 'application/json')
             .path('v1/gifs/search')
-            .get(data)(function(err, resp, body) {
+            .get()(function(err, resp, body) {
                 var success = false
                 if (err) {
                     robot.reply('Sorry, I couldn\'t find a gif for that search term.');
-				}
+				        }
                 else {
                     robot.send(body.data.url);
                     success = true;
