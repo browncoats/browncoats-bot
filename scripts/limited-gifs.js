@@ -70,6 +70,8 @@ module.exports = function(robot) {
                     robot.reply('Sorry, I couldn\'t find a gif for that search term.');
 				}
                 else {
+                    robot.logger.debug('response: ' + resp);
+                    robot.logger.debug('body: ' + body);
                     robot.send(body.data[0].bitly_gif_url);
                     success = true;
                 }
