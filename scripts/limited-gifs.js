@@ -73,9 +73,9 @@ module.exports = function(robot) {
                     robot.logger.debug('response: ' + resp);
                     robot.logger.debug('body: ' + body);
                     var data = JSON.parse(body);
-                    robot.logger.debug('data: ' + data);
-                    for (var item in data) {
-                      robot.logger.debug(item + ': ' + data[item]);
+                    robot.logger.debug('data: ' + data.data);
+                    for (var item in data.data) {
+                      robot.logger.debug(item + ': ' + data.data[item]);
                     }
                     msg.send(data.data.bitly_gif_url);
                     success = true;
