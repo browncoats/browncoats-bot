@@ -42,7 +42,7 @@ module.exports = function(robot) {
             limit: 1,
             offset: 0,
             rating: gifRating,
-            lang: en
+            lang: 'en'
         };
 		
         robot.http(baseUrl)
