@@ -34,6 +34,8 @@ module.exports = function(robot) {
 	});
     
     function respondWithGif(searchTerm) {
+        const https = require('https');
+      
         var baseUrl = 'https://api.giphy.com/v1/gifs/search';
         
         var data = {
@@ -45,27 +47,28 @@ module.exports = function(robot) {
             lang: 'en'
         };
 		    
-        var request = {
+        var options = {
           url: baseUrl,
           qs: data
         };
         
         robot.logger.debug('sending request');
-        robot.http(request)
-            .header('Accept', 'application/json')
-            .path('v1/gifs/search')
-            .get()(function(err, resp, body) {
-                var success = false
-                if (err) {
-                    robot.reply('Sorry, I couldn\'t find a gif for that search term.');
-				        }
-                else {
-                    robot.logger.debug('received reply: ' + body);
-                    res.send(body.data.url);
-                    success = true;
-                }
-				
-                return success;
-			});
+        var success = false;
+        https.get(options, (res) => {
+          robot.logger.debug('statusCode:', res.statusCode);
+          robot.logger.debug('headers:', res.headers);
+
+          res.on('data', (d) => {
+            robot.logger.debug(d);
+            success = true;
+            res.send(d.url);
+          });
+
+        }).on('error', (e) => {
+          robot.logger.debug(e);
+          robot.reply('Sorry, I couldn\'t find a gif for that search term.');
+        });
+        
+        return success;
 	}
 }
