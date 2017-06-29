@@ -55,7 +55,7 @@ module.exports = function(robot) {
             firstTime = false;
           }
           else {
-            requestUrl += '?';
+            requestUrl += '&';
           }
 
           requestUrl += item + '=' + data[item];
