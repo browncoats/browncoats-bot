@@ -23,13 +23,13 @@ module.exports = function(robot) {
             else {
                 res.reply(robot.userGifUsage[res.message.user] + ' of ' + gifLimit + ' gifs used for the day.');
                 
-                if (!!respondWithGif(term)) {
+                if (!!respondWithGif(term, res)) {
                     robot.userGifUsage[res.message.user]++;
 				}
 			}
 		}
         else {
-            respondWithGif(term);
+            respondWithGif(term, msg);
 		}
 	});
     
@@ -74,7 +74,7 @@ module.exports = function(robot) {
                     robot.logger.debug('body: ' + body);
                     var data = JSON.parse(body);
                     robot.logger.debug('data: ' + data);
-                    res.send(data.bitly_gif_url);
+                    msg.send(data.bitly_gif_url);
                     success = true;
                 }
 				
