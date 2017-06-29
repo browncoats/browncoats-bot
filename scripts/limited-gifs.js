@@ -58,13 +58,13 @@ module.exports = function(robot) {
           robot.logger.debug('statusCode:', resp.statusCode);
           robot.logger.debug('headers:', resp.headers);
 
-          resp.on('data', (d) => {
+          resp.on('data', function(d) {
             robot.logger.debug(d);
             success = true;
             res.send(d.url);
           });
 
-        }).on('error', (e) => {
+        }).on('error', function(e) {
           robot.logger.debug(e);
           robot.reply('Sorry, I couldn\'t find a gif for that search term.');
         });
