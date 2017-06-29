@@ -1,4 +1,4 @@
-export default function(robot) {
+module.exports = function(robot) {
 
     robot[userGifUsage] = {};
     var gifChannel = 'jiffs'
